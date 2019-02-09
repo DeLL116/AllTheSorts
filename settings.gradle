@@ -1,1 +1,1 @@
-include ':app', ':lib_androidui'
+include ':app', ':lib_androidui', ':lib_retronetworking'
