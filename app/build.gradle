@@ -13,6 +13,17 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        // lib_androidui has "store" flavor dimensions, but NewsCorpDemo app (currently) does not.
+        // -> Instruct Gradle to use lib_android_ui's "google" flavor dimension as default
+        //    for all app build configurations until NewsCorpDemo needs / defines "store" flavors
+        missingDimensionStrategy 'store', 'google'
+
+        // lib_androidui has "device" flavor dimensions, but NewsCorpDemo app (currently) does not.
+        // -> Instruct Gradle to use lib_android_ui's "phone" flavor dimension as default
+        //    for all app build configurations until NewsCorpDemo needs / defines "device" flavors
+        missingDimensionStrategy 'device', 'phone'
+
     }
     buildTypes {
         release {
@@ -20,15 +31,36 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    flavorDimensions 'api'
+
+    productFlavors {
+        // --> API Flavor Dimension Types for different build platforms
+        //     Prod = Production // Stage = Staging // dev = development
+        prod {
+            dimension "api"
+        }
+        stage {
+            dimension "api"
+        }
+        dev {
+            dimension "api"
+        }
+    }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$libs.kotlinVersion"
-    implementation 'androidx.appcompat:appcompat:1.1.0-alpha01'
-    implementation 'androidx.core:core-ktx:1.1.0-alpha04'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test:runner:1.1.2-alpha01'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.2-alpha01'
+    implementation "androidx.core:core-ktx:$libs.coreKtxVersion"
+    implementation "androidx.appcompat:appcompat:$libs.appcompatVersion"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$libs.kotlinVersion"
+    implementation "androidx.constraintlayout:constraintlayout:$libs.constraintLayoutVersion"
+    implementation "androidx.recyclerview:recyclerview:$libs.recyclerviewVersion"
+
+    testImplementation "junit:junit:$libs.junitVersion"
+    androidTestImplementation "androidx.test:runner:$libs.runnerVersion"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$libs.espressoCoreVersion"
+
+    // --> App Library Modules
+    implementation project(':lib_androidui')
 }
