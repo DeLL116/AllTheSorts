@@ -15,36 +15,39 @@ class MainActivity :
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContentView(R.layout.activity_main)
 
         sorting_algo_rv.layoutManager = LinearLayoutManager(this)
+
         sorting_algo_rv.adapter = SortingAlgoAdapter(this).apply {
             setListener(this@MainActivity)
             setItems(
                 listOf(
-                    BubbleSortAlgo("Bubble Sort"),
+                    BubbleSortAlgo(
+                        "Bubble Sort",
+                        intArrayOf(4, 23, 65, 75, 60, 45, 40, 16, 35, 30, 20, 10, 1, 0)
+                    ),
                     object : SortAlgo {
                         override val name: String = "PlaceHolder"
+                        override val data: IntArray
+                            get() = intArrayOf(2)
                     },
                     object : SortAlgo {
                         override val name: String = "PlaceHolder"
+                        override val data: IntArray
+                            get() = intArrayOf(2)
                     },
                     object : SortAlgo {
                         override val name: String = "PlaceHolder"
+                        override val data: IntArray
+                            get() = intArrayOf(2)
                     },
                     object : SortAlgo {
                         override val name: String = "PlaceHolder"
-                    },
-                    object : SortAlgo {
-                        override val name: String = "PlaceHolder"
-                    },
-                    object : SortAlgo {
-                        override val name: String = "PlaceHolder"
-                    },
-                    object : SortAlgo {
-                        override val name: String = "PlaceHolder"
+                        override val data: IntArray
+                            get() = intArrayOf(2)
                     }
-
                 )
             )
         }
