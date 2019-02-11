@@ -23,6 +23,6 @@ class SortingAlgoViewHolder(itemView: View) : BaseViewHolder<SortAlgo, BaseRecyc
 
     override fun onBind(item: SortAlgo, listener: BaseRecyclerViewClickListener<SortAlgo>?) {
         swappableImageCardView.setOnClickListener { listener?.onItemClicked(item) }
-        swappableImageCardView.setData(item.title, null, null, null)
+        swappableImageCardView.setData(item.name, null, null, null)
     }
 }

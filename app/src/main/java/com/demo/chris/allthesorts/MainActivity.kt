@@ -24,25 +24,25 @@ class MainActivity :
                 listOf(
                     BubbleSortAlgo("Bubble Sort"),
                     object : SortAlgo {
-                        override val title: String = "PlaceHolder"
+                        override val name: String = "PlaceHolder"
                     },
                     object : SortAlgo {
-                        override val title: String = "PlaceHolder"
+                        override val name: String = "PlaceHolder"
                     },
                     object : SortAlgo {
-                        override val title: String = "PlaceHolder"
+                        override val name: String = "PlaceHolder"
                     },
                     object : SortAlgo {
-                        override val title: String = "PlaceHolder"
+                        override val name: String = "PlaceHolder"
                     },
                     object : SortAlgo {
-                        override val title: String = "PlaceHolder"
+                        override val name: String = "PlaceHolder"
                     },
                     object : SortAlgo {
-                        override val title: String = "PlaceHolder"
+                        override val name: String = "PlaceHolder"
                     },
                     object : SortAlgo {
-                        override val title: String = "PlaceHolder"
+                        override val name: String = "PlaceHolder"
                     }
 
                 )
@@ -51,6 +51,6 @@ class MainActivity :
     }
 
     override fun onItemClicked(item: SortAlgo) {
-        Timber.d("Clicked photo with ID %s", item.toString())
+        Timber.d("Clicked SortAlgo %s", item.name)
     }
 }

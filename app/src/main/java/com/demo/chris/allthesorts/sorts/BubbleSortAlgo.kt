@@ -1,4 +1,7 @@
 package com.demo.chris.allthesorts.sorts
 
+/**
+ * Defines a Bubble Sort sorting algorithm
+ */
 data class BubbleSortAlgo(
-    override val title: String = "BubbleSort") : SortAlgo
+    override val name: String = "BubbleSort") : SortAlgo
