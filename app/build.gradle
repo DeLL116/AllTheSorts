@@ -2,6 +2,8 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
+// Currently used for enabling easy Parcelable support
+// ---> See BubbleSortAlgo.kt for usage (Note the @Parcelize annotation!)
 // ---> https://kotlinlang.org/docs/tutorials/android-plugin.html#enabling-parcelable-support
 androidExtensions {
     experimental = true
