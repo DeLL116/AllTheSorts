@@ -9,7 +9,7 @@ import com.nochino.support.androidui.views.recyclerview.BaseRecyclerViewClickLis
 import kotlinx.android.synthetic.main.activity_main.*
 import timber.log.Timber
 
-class MainActivity :
+class SortingListActivity :
     AppCompatActivity(),
     BaseRecyclerViewClickListener<SortAlgo> {
 
@@ -21,7 +21,7 @@ class MainActivity :
         sorting_algo_rv.layoutManager = LinearLayoutManager(this)
 
         sorting_algo_rv.adapter = SortingAlgoAdapter(this).apply {
-            setListener(this@MainActivity)
+            setListener(this@SortingListActivity)
             setItems(
                 listOf(
                     BubbleSortAlgo(
