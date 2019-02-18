@@ -1,9 +1,8 @@
 package com.demo.chris.allthesorts
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.demo.chris.allthesorts.sorts.BubbleSortAlgo
 import com.demo.chris.allthesorts.sorts.SortAlgo
 import com.nochino.support.androidui.views.recyclerview.BaseRecyclerViewClickListener
 import kotlinx.android.synthetic.main.activity_main.*
@@ -11,7 +10,8 @@ import timber.log.Timber
 
 class SortingListActivity :
     AppCompatActivity(),
-    BaseRecyclerViewClickListener<SortAlgo> {
+    BaseRecyclerViewClickListener<SortAlgo>,
+    SortAlgoFragment.OnSortAlgoFragmentInteractionListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,36 +24,33 @@ class SortingListActivity :
             setListener(this@SortingListActivity)
             setItems(
                 listOf(
-                    BubbleSortAlgo(
-                        "Bubble Sort",
-                        intArrayOf(4, 23, 65, 75, 60, 45, 40, 16, 35, 30, 20, 10, 1, 0)
-                    ),
-                    object : SortAlgo {
-                        override val name: String = "PlaceHolder"
-                        override val data: IntArray
-                            get() = intArrayOf(2)
-                    },
-                    object : SortAlgo {
-                        override val name: String = "PlaceHolder"
-                        override val data: IntArray
-                            get() = intArrayOf(2)
-                    },
-                    object : SortAlgo {
-                        override val name: String = "PlaceHolder"
-                        override val data: IntArray
-                            get() = intArrayOf(2)
-                    },
-                    object : SortAlgo {
-                        override val name: String = "PlaceHolder"
-                        override val data: IntArray
-                            get() = intArrayOf(2)
-                    }
+                    SortAlgo.create("2", IntRange(0, 1)),
+                    SortAlgo.create("3", IntRange(0, 2)),
+                    SortAlgo.create("10", IntRange(0, 9)),
+                    SortAlgo.create("15", IntRange(0, 14)),
+                    SortAlgo.create("20", IntRange(0, 19)),
+                    SortAlgo.create("50", IntRange(0, 49)),
+                    SortAlgo.create("100", IntRange(0, 99)),
+                    SortAlgo.create("540", IntRange(0, 539)),
+                    SortAlgo.create("1000", IntRange(0, 999)),
+                    SortAlgo.create("1080", IntRange(0, 1079)),
+                    SortAlgo.create("1081", IntRange(0, 1080)),
+                    SortAlgo.create("10000", IntRange(0, 9999)),
+                    SortAlgo.create("100000", IntRange(0, 99999))
                 )
             )
         }
     }
 
     override fun onItemClicked(item: SortAlgo) {
-        Timber.d("Clicked SortAlgo %s", item.name)
+        Timber.d("onItemClicked :: Clicked SortAlgo %s", item.name)
+        supportFragmentManager.beginTransaction()
+            .add(android.R.id.content, SortAlgoFragment.newInstance(item), item.name)
+            .addToBackStack(item.name)
+            .commit()
+    }
+
+    override fun onSortAlgoFragmentInteraction(sortAlgo: SortAlgo?, data: Int) {
+        Timber.d("onSortAlgoFragmentInteraction :: Clicked [${sortAlgo?.name}] at data point [$data]")
     }
 }

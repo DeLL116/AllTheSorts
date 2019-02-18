@@ -11,7 +11,8 @@ import com.nochino.support.androidui.views.recyclerview.adapters.BaseRecyclerVie
 
 class SortingAlgoAdapter(context: Context) :
     BaseRecyclerViewAdapter<SortAlgo, BaseRecyclerViewClickListener<SortAlgo>, SortingAlgoViewHolder>(context) {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SortingAlgoViewHolder {
+
+    override fun getViewHolder(parent: ViewGroup, viewType: Int): SortingAlgoViewHolder {
         return SortingAlgoViewHolder(inflate(R.layout.recycler_view_card_item_layout, parent))
     }
 }

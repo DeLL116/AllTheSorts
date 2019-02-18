@@ -55,7 +55,7 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "androidx.core:core-ktx:$libs.coreKtxVersion"
     implementation "androidx.appcompat:appcompat:$libs.appcompatVersion"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$libs.kotlinVersion"
