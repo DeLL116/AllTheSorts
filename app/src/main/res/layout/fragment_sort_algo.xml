@@ -1,10 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.recyclerview.widget.RecyclerView
+<androidx.constraintlayout.widget.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/list"
-        android:name="com.demo.chris.allthesorts.ItemFragment"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/sort_algo_frag_root"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".SortAlgoFragment"
-        tools:listitem="@layout/vertical_progress_bar_item_layout"/>
+        android:layout_height="match_parent">
+
+    <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/sort_algo_frag_rv"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="8dp"
+            app:layout_constraintHeight_percent="0.8"
+            app:layout_constraintBottom_toTopOf="@+id/sort_algo_frag_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+    <Button
+            android:id="@+id/sort_algo_frag_button"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="8dp"
+            android:text="@string/sort"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/sort_algo_frag_rv"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

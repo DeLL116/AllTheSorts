@@ -10,6 +10,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.demo.chris.allthesorts.sorts.SortAlgo
 import com.nochino.support.androidui.views.recyclerview.BaseRecyclerViewClickListener
+import com.nochino.support.androidui.views.recyclerview.adapters.DistributionAxis
+import kotlinx.android.synthetic.main.fragment_sort_algo.view.*
 
 /**
  * A fragment representing a list of [SortAlgo] objects.
@@ -32,26 +34,31 @@ class SortAlgoFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_sort_algo, container, false)
+        return inflater.inflate(R.layout.fragment_sort_algo, container, false)
+    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         // Set the adapter
-        if (view is RecyclerView) {
-            with(view) {
+        if (view.sort_algo_frag_rv is RecyclerView) {
+            with(view.sort_algo_frag_rv) {
                 layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
+
                 sortAlgo?.let {
-                    adapter = SortAlgoAdapter(context, container!!.measuredWidth, it).apply {
-                        setListener(
-                            object : BaseRecyclerViewClickListener<Int> {
-                                override fun onItemClicked(item: Int) {
-                                    listener?.onSortAlgoFragmentInteraction(sortAlgo, item)
+                    view.sort_algo_frag_rv.post {
+                        adapter = SortAlgoAdapter(context, DistributionAxis.X, view.sort_algo_frag_rv.width, it).apply {
+                            setListener(
+                                object : BaseRecyclerViewClickListener<Int> {
+                                    override fun onItemClicked(item: Int) {
+                                        listener?.onSortAlgoFragmentInteraction(sortAlgo, item)
+                                    }
                                 }
-                            }
-                        )
+                            )
+                        }
                     }
                 }
             }
         }
-        return view
     }
 
     override fun onAttach(context: Context) {
