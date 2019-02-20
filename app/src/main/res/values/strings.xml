@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">All The Sorts</string>
     <string name="sort">Sort</string>
+    <string name="shuffle">Shuffle</string>
 </resources>
