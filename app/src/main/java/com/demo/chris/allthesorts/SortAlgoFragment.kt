@@ -9,12 +9,13 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.demo.chris.allthesorts.sorts.SortAlgo
+import com.demo.chris.allthesorts.sorts.SortData
 import com.nochino.support.androidui.views.recyclerview.BaseRecyclerViewClickListener
 import com.nochino.support.androidui.views.recyclerview.adapters.DistributionAxis
 import kotlinx.android.synthetic.main.fragment_sort_algo.view.*
 
 /**
- * A fragment representing a list of [SortAlgo] objects.
+ * A fragment that depicts a list of [SortData] objects.
  */
 class SortAlgoFragment : Fragment() {
 
@@ -46,7 +47,12 @@ class SortAlgoFragment : Fragment() {
 
                 sortAlgo?.let {
                     view.sort_algo_frag_rv.post {
-                        adapter = SortAlgoAdapter(context, DistributionAxis.X, view.sort_algo_frag_rv.width, it).apply {
+                        adapter = SortAlgoAdapter(
+                            context,
+                            DistributionAxis.X,
+                            view.sort_algo_frag_rv.width,
+                            it.sortData
+                        ).apply {
                             setListener(
                                 object : BaseRecyclerViewClickListener<Int> {
                                     override fun onItemClicked(item: Int) {

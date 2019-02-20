@@ -3,7 +3,9 @@ package com.demo.chris.allthesorts
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.demo.chris.allthesorts.sorts.BubbleSortAlgo
 import com.demo.chris.allthesorts.sorts.SortAlgo
+import com.demo.chris.allthesorts.sorts.SortData
 import com.nochino.support.androidui.views.recyclerview.BaseRecyclerViewClickListener
 import kotlinx.android.synthetic.main.activity_main.*
 import timber.log.Timber
@@ -24,31 +26,24 @@ class SortingListActivity :
             setListener(this@SortingListActivity)
             setItems(
                 listOf(
-                    SortAlgo.create("2", IntRange(0, 1)),
-                    SortAlgo.create("3", IntRange(0, 2)),
-                    SortAlgo.create("10", IntRange(0, 9)),
-                    SortAlgo.create("10 (No Shuffle)", IntRange(0, 9), false),
-                    SortAlgo.create("15", IntRange(0, 14)),
-                    SortAlgo.create("20", IntRange(0, 19)),
-                    SortAlgo.create("50", IntRange(0, 49)),
-                    SortAlgo.create("100", IntRange(0, 99)),
-                    SortAlgo.create("540", IntRange(0, 539)),
-                    SortAlgo.create("1000", IntRange(0, 999)),
-                    SortAlgo.create("1080", IntRange(0, 1079)),
-                    SortAlgo.create("1081", IntRange(0, 1080)),
-                    SortAlgo.create("10000", IntRange(0, 9999)),
-                    SortAlgo.create("100000", IntRange(0, 99999))
+                    BubbleSortAlgo(SortData.create("BubbleSortAlgo - 2", IntRange(0, 1))),
+                    BubbleSortAlgo(SortData.create("BubbleSortAlgo - 3", IntRange(0, 2))),
+                    BubbleSortAlgo(SortData.create("BubbleSortAlgo - 10", IntRange(0, 9))),
+                    BubbleSortAlgo(SortData.create("BubbleSortAlgo - 10 *(No Shuffle)", IntRange(0, 9), false)),
+                    BubbleSortAlgo(SortData.create("BubbleSortAlgo - 50", IntRange(0, 49))),
+                    BubbleSortAlgo(SortData.create("BubbleSortAlgo - 100", IntRange(0, 99))),
+                    BubbleSortAlgo(SortData.create("BubbleSortAlgo - 1080", IntRange(0, 1079)))
                 )
             )
         }
     }
 
     override fun onItemClicked(item: SortAlgo) {
-        Timber.d("onItemClicked :: Clicked SortAlgo %s", item.name)
+        Timber.d("onItemClicked :: Clicked SortData %s", item.name)
 
-        // If the SortAlgo is shuffleable...shuffle it before creating a new SortAlgoFragment
-        if (item.shuffleable) {
-            item.data.shuffle()
+        // Shuffle the data before creating the fragment (if the SortData is able to be shuffled)
+        if (item.sortData.shuffleable) {
+            item.shuffle()
         }
 
         // Create and add the new SortAlgoFragment to display the SortAlgo

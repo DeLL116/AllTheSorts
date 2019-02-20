@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
-import com.demo.chris.allthesorts.sorts.SortAlgo
+import com.demo.chris.allthesorts.sorts.SortData
 import com.nochino.support.androidui.views.recyclerview.BaseRecyclerViewClickListener
 import com.nochino.support.androidui.views.recyclerview.BaseViewHolder
 import com.nochino.support.androidui.views.recyclerview.adapters.DistributedItemSizeAdapter
@@ -15,16 +15,16 @@ import com.nochino.support.androidui.views.recyclerview.adapters.DistributionAxi
  * An adapter that basically defeats the purpose of a RecyclerView by attempting to
  * scale each item view to proportionately fit the size of the containing view.
  * @param context Context used for layout inflation
- * @param sortAlgo The data
  * @param containerViewSize The size of the containing view. Used to determine how much
+ * @param sortData The data
  * to scale each item view so that all item views are sized proportionately to fill the
  * container view. All items will be visible in the RecyclerView if this is possible.
  */
-class SortAlgoAdapter(context: Context, distributionAxis: DistributionAxis, containerViewSize: Int, sortAlgo: SortAlgo) :
+class SortAlgoAdapter(context: Context, distributionAxis: DistributionAxis, containerViewSize: Int, sortData: SortData) :
     DistributedItemSizeAdapter<
             Int,
             BaseRecyclerViewClickListener<Int>,
-            BaseViewHolder<Int, BaseRecyclerViewClickListener<Int>>>(context, distributionAxis, containerViewSize, sortAlgo.data) {
+            BaseViewHolder<Int, BaseRecyclerViewClickListener<Int>>>(context, distributionAxis, containerViewSize, sortData.data) {
 
     /** The max value in the data set. Used to set the max of each ProgressBar */
     private val dataMaxValue = items.max()
