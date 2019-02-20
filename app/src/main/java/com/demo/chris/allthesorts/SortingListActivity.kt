@@ -27,6 +27,7 @@ class SortingListActivity :
                     SortAlgo.create("2", IntRange(0, 1)),
                     SortAlgo.create("3", IntRange(0, 2)),
                     SortAlgo.create("10", IntRange(0, 9)),
+                    SortAlgo.create("10 (No Shuffle)", IntRange(0, 9), false),
                     SortAlgo.create("15", IntRange(0, 14)),
                     SortAlgo.create("20", IntRange(0, 19)),
                     SortAlgo.create("50", IntRange(0, 49)),
@@ -44,6 +45,13 @@ class SortingListActivity :
 
     override fun onItemClicked(item: SortAlgo) {
         Timber.d("onItemClicked :: Clicked SortAlgo %s", item.name)
+
+        // If the SortAlgo is shuffleable...shuffle it before creating a new SortAlgoFragment
+        if (item.shuffleable) {
+            item.data.shuffle()
+        }
+
+        // Create and add the new SortAlgoFragment to display the SortAlgo
         supportFragmentManager.beginTransaction()
             .add(android.R.id.content, SortAlgoFragment.newInstance(item), item.name)
             .addToBackStack(item.name)
