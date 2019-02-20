@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.fragment_sort_algo.view.*
 /**
  * A fragment that depicts a list of [SortData] objects.
  */
-class SortAlgoFragment : Fragment() {
+class SortAlgoFragment : Fragment(), View.OnClickListener {
 
     private var sortAlgo: SortAlgo? = null
 
@@ -40,6 +40,10 @@ class SortAlgoFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        view.sort_algo_frag_button_sort.setOnClickListener(this)
+        view.sort_algo_frag_button_shuffle.setOnClickListener(this)
+
         // Set the adapter
         if (view.sort_algo_frag_rv is RecyclerView) {
             with(view.sort_algo_frag_rv) {
@@ -79,6 +83,13 @@ class SortAlgoFragment : Fragment() {
     override fun onDetach() {
         super.onDetach()
         listener = null
+    }
+
+    override fun onClick(v: View?) {
+        when {
+            v?.id == R.id.sort_algo_frag_button_sort -> sortAlgo?.sort()
+            v?.id == R.id.sort_algo_frag_button_shuffle -> sortAlgo?.shuffle()
+        }
     }
 
     /**

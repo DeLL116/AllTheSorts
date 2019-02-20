@@ -4,7 +4,8 @@ import timber.log.Timber
 
 class BubbleSortAlgo(sortData: SortData) : SortAlgo(sortData) {
 
-    override fun sort(sortData: SortData) {
+    override fun sort() {
+        super.sort()
 
         Timber.d("List was ${sortData.data}")
         Timber.d("List iteration count is $listIterationCount")
@@ -28,7 +29,7 @@ class BubbleSortAlgo(sortData: SortData) : SortAlgo(sortData) {
         }
 
         if (swapped) {
-            return sort(sortData)
+            return sort()
         }
 
         Timber.i("Sorted a list of ${sortData.data.size} elements in $listIterationCount iterations!")
