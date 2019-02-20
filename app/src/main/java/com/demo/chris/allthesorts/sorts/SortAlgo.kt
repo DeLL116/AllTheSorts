@@ -18,15 +18,28 @@ open class SortAlgo(val sortData: SortData) : Parcelable {
     @IgnoredOnParcel
     val name = sortData.name
 
+    private fun reset() {
+        currentIndex = 0
+        listIterationCount = 0
+    }
+
     @CallSuper
     fun shuffle() {
+        reset()
         Timber.d("Shuffling....")
+        Timber.d("Old data [${sortData.data}]")
         sortData.data.shuffle()
+        Timber.d("New data [${sortData.data}]")
     }
 
     @CallSuper
     open fun sort(){
         Timber.d("Sorting....")
+    }
+
+    open fun onSortEnded() {
+        Timber.d("Sort finished....")
+        reset()
     }
 
     @CallSuper

@@ -35,6 +35,9 @@ class BubbleSortAlgo(sortData: SortData) : SortAlgo(sortData) {
         Timber.i("Sorted a list of ${sortData.data.size} elements in $listIterationCount iterations!")
         Timber.d("${sortData.data}")
 
+        // Alert that sorting has finished
+        onSortEnded()
+
     }
 
     override fun swap() {
