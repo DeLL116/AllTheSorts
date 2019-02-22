@@ -29,9 +29,11 @@ class SortingListActivity :
                     BubbleSortAlgo(SortData.create("BubbleSortAlgo - 2", IntRange(0, 1))),
                     BubbleSortAlgo(SortData.create("BubbleSortAlgo - 3", IntRange(0, 2))),
                     BubbleSortAlgo(SortData.create("BubbleSortAlgo - 10", IntRange(0, 9))),
-                    BubbleSortAlgo(SortData.create("BubbleSortAlgo - 10 *(No Shuffle)", IntRange(0, 9), false)),
+                    BubbleSortAlgo(SortData.create("BubbleSortAlgo - 10 * (No Shuffle)", IntRange(0, 9), false)),
                     BubbleSortAlgo(SortData.create("BubbleSortAlgo - 50", IntRange(0, 49))),
                     BubbleSortAlgo(SortData.create("BubbleSortAlgo - 100", IntRange(0, 99))),
+                    BubbleSortAlgo(SortData.create("BubbleSortAlgo - 500", IntRange(0, 499))),
+                    BubbleSortAlgo(SortData.create("BubbleSortAlgo - 500 * (No Shuffle)", IntRange(0, 499), false)),
                     BubbleSortAlgo(SortData.create("BubbleSortAlgo - 1080", IntRange(0, 1079)))
                 )
             )

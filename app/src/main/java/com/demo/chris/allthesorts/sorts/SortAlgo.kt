@@ -10,7 +10,7 @@ import timber.log.Timber
 open class SortAlgo(val sortData: SortData) : Parcelable {
 
     @IgnoredOnParcel
-    protected var listIterationCount = 0
+    protected var comparisonCount = 0
 
     @IgnoredOnParcel
     protected var currentIndex = 0
@@ -18,9 +18,12 @@ open class SortAlgo(val sortData: SortData) : Parcelable {
     @IgnoredOnParcel
     val name = sortData.name
 
+    @IgnoredOnParcel
+    var sortAlgoEventListener: SortAlgoEventListener? = null
+
     private fun reset() {
         currentIndex = 0
-        listIterationCount = 0
+        comparisonCount = 0
     }
 
     @CallSuper
@@ -29,11 +32,16 @@ open class SortAlgo(val sortData: SortData) : Parcelable {
         Timber.d("Shuffling....")
         Timber.d("Old data [${sortData.data}]")
         sortData.data.shuffle()
+        sortAlgoEventListener?.onSortAlgoDataChanged(sortData)
         Timber.d("New data [${sortData.data}]")
     }
 
+    fun startSort() {
+        onSortStart()
+    }
+
     @CallSuper
-    open fun sort(){
+    protected open fun onSortStart(){
         Timber.d("Sorting....")
     }
 
@@ -43,7 +51,12 @@ open class SortAlgo(val sortData: SortData) : Parcelable {
     }
 
     @CallSuper
-    open fun swap() {
+    open fun onSwap() {
         Timber.d("Swapping....")
+        sortAlgoEventListener?.onSortAlgoDataChanged(sortData)
+    }
+
+    interface SortAlgoEventListener {
+        fun onSortAlgoDataChanged(updatedSortData: SortData)
     }
 }

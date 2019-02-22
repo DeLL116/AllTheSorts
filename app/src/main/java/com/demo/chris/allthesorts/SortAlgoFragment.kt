@@ -10,14 +10,15 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.demo.chris.allthesorts.sorts.SortAlgo
 import com.demo.chris.allthesorts.sorts.SortData
+import com.google.android.material.snackbar.Snackbar
 import com.nochino.support.androidui.views.recyclerview.BaseRecyclerViewClickListener
-import com.nochino.support.androidui.views.recyclerview.adapters.DistributionAxis
+import com.nochino.support.androidui.views.recyclerview.adapters.ScaleAxis
 import kotlinx.android.synthetic.main.fragment_sort_algo.view.*
 
 /**
  * A fragment that depicts a list of [SortData] objects.
  */
-class SortAlgoFragment : Fragment(), View.OnClickListener {
+class SortAlgoFragment : Fragment(), View.OnClickListener, SortAlgo.SortAlgoEventListener {
 
     private var sortAlgo: SortAlgo? = null
 
@@ -28,6 +29,7 @@ class SortAlgoFragment : Fragment(), View.OnClickListener {
 
         arguments?.let {
             sortAlgo = it.getParcelable(ARG_SORT_ALGO)
+            sortAlgo?.sortAlgoEventListener = this
         }
     }
 
@@ -53,13 +55,14 @@ class SortAlgoFragment : Fragment(), View.OnClickListener {
                     view.sort_algo_frag_rv.post {
                         adapter = SortAlgoAdapter(
                             context,
-                            DistributionAxis.X,
+                            ScaleAxis.X,
                             view.sort_algo_frag_rv.width,
                             it.sortData
                         ).apply {
                             setListener(
                                 object : BaseRecyclerViewClickListener<Int> {
                                     override fun onItemClicked(item: Int) {
+                                        Snackbar.make(getView()!!, Integer.toString(item), Snackbar.LENGTH_SHORT).show()
                                         listener?.onSortAlgoFragmentInteraction(sortAlgo, item)
                                     }
                                 }
@@ -83,13 +86,21 @@ class SortAlgoFragment : Fragment(), View.OnClickListener {
     override fun onDetach() {
         super.onDetach()
         listener = null
+        sortAlgo?.sortAlgoEventListener = null
+        sortAlgo = null
     }
 
     override fun onClick(v: View?) {
         when {
-            v?.id == R.id.sort_algo_frag_button_sort -> sortAlgo?.sort()
+            v?.id == R.id.sort_algo_frag_button_sort -> sortAlgo?.startSort()
             v?.id == R.id.sort_algo_frag_button_shuffle -> sortAlgo?.shuffle()
         }
+    }
+
+    override fun onSortAlgoDataChanged(updatedSortData: SortData) {
+        val sortAlgoAdapter = (view?.sort_algo_frag_rv?.adapter as SortAlgoAdapter)
+        val adapterDiffUtil = SortAlgoDiffUtil(sortAlgoAdapter.items, updatedSortData.data)
+        sortAlgoAdapter.update(updatedSortData.data, adapterDiffUtil)
     }
 
     /**
